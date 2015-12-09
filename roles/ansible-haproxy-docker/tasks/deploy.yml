@@ -1,0 +1,6 @@
+---
+# handlers file for ansible-haproxy-docker
+- name: ensure haproxy service is restarted
+  service:
+    name: haproxy
+    state: started

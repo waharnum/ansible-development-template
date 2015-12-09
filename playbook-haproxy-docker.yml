@@ -1,0 +1,13 @@
+---
+- hosts: haproxy
+  remote_user: vagrant
+  become: yes
+  vars_files:
+    - docker-containers.yml
+
+  roles:
+    - ansible-haproxy-docker
+  tasks:
+    - name: debug variable
+      debug:
+        var: "ansible_haproxy_docker_containers"

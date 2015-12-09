@@ -1,0 +1,25 @@
+- hosts: docker
+  remote_user: vagrant
+  become: yes
+  tasks:
+    - name: launch couchdb container
+      docker:
+        name: couchdb
+        image: klaemo/couchdb
+        state: restarted
+        pull: always
+    - name: launch preferences server container
+      docker:
+        name: prefserver
+        image: aharnum/preferences-server
+        state: restarted
+        links: couchdb
+        ports:
+          - "8082:8082"
+        expose:
+          - 8082
+        pull: always
+        env:
+          NODE_ENV: preferencesServer.production
+          COUCHDB_HOST_ADDRESS: couchdb:5984
+          PRIME_DB: true

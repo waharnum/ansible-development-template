@@ -1,0 +1,35 @@
+# {{ ansible_managed }}
+
+global
+    daemon
+    maxconn 4096
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:80
+
+{% for container in ansible_haproxy_docker_containers %}
+    acl is_{{ container.name }} hdr_end(host) -i {{ container.domain_name }}
+{% endfor %}
+
+{% for container in ansible_haproxy_docker_containers %}
+    use_backend {{ container.name }} if is_{{ container.name }}
+{% endfor %}
+
+{% for container in ansible_haproxy_docker_containers %}
+    backend {{ container.name }}
+        balance roundrobin
+        option httpclose
+        option forwardfor
+        server {{ container.name }}-container {{ container.ip }}:{{ container.port }} maxconn 32
+
+{% endfor %}
+
+#listen admin
+#    bind 127.0.0.1:8080
+#    stats enable
