@@ -2,6 +2,16 @@
 
 I find myself having to do this kind of thing over and over again when doing serious Ansible development (writing new roles and playbooks) or testing (especially reviewing the work of others), so am trying to capture it in a repo I can fork when needed to lower the start-up time.
 
+## Requirements
+
+- Vagrant / VirtualBox
+- Ansible
+
+## What It Does Out of the Box
+- sets up three VMs with private networking
+- confirms Ansible can connect to them
+- basically, you can manage the three VMs as though they were remote servers
+
 ## Setting up a New Project
 
 - fork the repo
