@@ -30,7 +30,3 @@ frontend http-in
         server {{ container.name }} {{ container.ip }}:{{ container.port }} maxconn 32
         {% endfor %}
 {% endfor %}
-
-#listen admin
-#    bind 127.0.0.1:8080
-#    stats enable
