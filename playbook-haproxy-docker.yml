@@ -7,7 +7,3 @@
 
   roles:
     - ansible-haproxy-docker
-  tasks:
-    - name: debug variable
-      debug:
-        var: "ansible_haproxy_docker_applications"
