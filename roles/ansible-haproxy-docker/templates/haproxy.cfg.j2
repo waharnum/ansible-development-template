@@ -2,13 +2,13 @@
 
 global
     daemon
-    maxconn 4096
+    maxconn {{ ansible_haproxy_maxconn }}
 
 defaults
     mode http
-    timeout connect 5000ms
-    timeout client 50000ms
-    timeout server 50000ms
+    timeout connect {{ ansible_haproxy_timeout_connect }}
+    timeout client {{ ansible_haproxy_timeout_client }}
+    timeout server {{ ansible_haproxy_timeout_server }}
 
 frontend http-in
     bind *:80
