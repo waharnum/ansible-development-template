@@ -32,3 +32,7 @@ I find myself having to do this kind of thing over and over again when doing ser
 
 - `vagrant destroy`
 - `./up.sh`
+
+## Moving mature/"completed" role work to a separate repository from the subdirectory
+
+- https://help.github.com/articles/splitting-a-subfolder-out-into-a-new-repository/
