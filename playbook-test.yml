@@ -1,0 +1,8 @@
+---
+- hosts: vms
+  remote_user: vagrant
+  become: yes
+
+  tasks:
+    - name: ping all servers
+      action: ping
