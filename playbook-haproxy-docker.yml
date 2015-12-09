@@ -10,4 +10,4 @@
   tasks:
     - name: debug variable
       debug:
-        var: "ansible_haproxy_docker_containers"
+        var: "ansible_haproxy_docker_applications"

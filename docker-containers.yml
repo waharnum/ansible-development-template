@@ -1,3 +1,6 @@
-ansible_haproxy_docker_containers:
-  - { name: prefserver_1, domain_name: prefserver1.local, ip: 192.168.88.11, port: 8082 }
-  - { name: prefserver_2, domain_name: prefserver2.local, ip: 192.168.88.12, port: 8082 }
+ansible_haproxy_docker_applications:
+    - name: prefserver
+      domain_name: prefserver.local
+      containers:
+        - { name: prefserver_1, ip: 192.168.88.11, port: 8082 }
+        - { name: prefserver_2, ip: 192.168.88.11, port: 8082 }

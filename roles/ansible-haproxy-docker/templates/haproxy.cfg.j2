@@ -13,21 +13,22 @@ defaults
 frontend http-in
     bind *:80
 
-{% for container in ansible_haproxy_docker_containers %}
-    acl is_{{ container.name }} hdr_end(host) -i {{ container.domain_name }}
+{% for application in ansible_haproxy_docker_applications %}
+    acl is_{{ application.name }} hdr_end(host) -i {{ application.domain_name }}
 {% endfor %}
 
-{% for container in ansible_haproxy_docker_containers %}
-    use_backend {{ container.name }} if is_{{ container.name }}
+{% for application in ansible_haproxy_docker_applications %}
+    use_backend {{ application.name }} if is_{{ application.name }}
 {% endfor %}
 
-{% for container in ansible_haproxy_docker_containers %}
-    backend {{ container.name }}
+{% for application in ansible_haproxy_docker_applications %}
+    backend {{ application.name }}
         balance roundrobin
         option httpclose
         option forwardfor
-        server {{ container.name }}-container {{ container.ip }}:{{ container.port }} maxconn 32
-
+        {% for container in application.containers %}
+        server {{ container.name }} {{ container.ip }}:{{ container.port }} maxconn 32
+        {% endfor %}
 {% endfor %}
 
 #listen admin
