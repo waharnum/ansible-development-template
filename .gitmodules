@@ -1,0 +1,3 @@
+[submodule "roles/ansible-preferences-server-data-loader"]
+	path = roles/ansible-preferences-server-data-loader
+	url = https://github.com/waharnum/ansible-preferences-server-data-loader
