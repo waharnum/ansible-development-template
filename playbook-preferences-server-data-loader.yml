@@ -1,0 +1,12 @@
+---
+- hosts: dataloader
+  remote_user: vagrant
+  become: yes
+  vars:
+    - preferences_server_data_loader_couchdb_host_address: 192.168.99.100:5984
+    - preferences_server_data_loader_cleanup_after: false
+
+  roles:
+    #   - ansible-facts
+    #   - ansible-nodejs
+      - ansible-preferences-server-data-loader
