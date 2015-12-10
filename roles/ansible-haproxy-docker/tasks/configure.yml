@@ -1,5 +1,0 @@
-- name: create haproxy config for the docker containers
-  template:
-    src: haproxy.cfg.j2
-    dest: /etc/haproxy/haproxy.cfg
-  notify: restart haproxy service

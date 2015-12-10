@@ -1,4 +1,0 @@
-- name: install haproxy from EPEL
-  yum:
-    name: haproxy
-    state: latest

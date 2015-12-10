@@ -1,7 +1,0 @@
----
-# defaults file for ansible-haproxy-docker
-ansible_haproxy_maxconn: 4096
-
-ansible_haproxy_timeout_connect: 5000ms
-ansible_haproxy_timeout_client: 50000ms
-ansible_haproxy_timeout_server: 50000ms
