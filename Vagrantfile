@@ -18,19 +18,19 @@ Vagrant.configure(2) do |config|
       v.memory = 4096
   end
 
-  config.vm.define "vm_1" do |vm|
-      master.vm.box = "inclusivedesign/centos7"
-      master.vm.network "private_network", ip: "192.168.88.10"
+  config.vm.define "vm_1" do |vm_1|
+      vm_1.vm.box = "inclusivedesign/centos7"
+      vm_1.vm.network "private_network", ip: "192.168.88.10"
   end
 
-  config.vm.define "vm_2" do |vm|
-      node.vm.box = "inclusivedesign/centos7"
-      node.vm.network "private_network", ip: "192.168.88.11"
+  config.vm.define "vm_2" do |vm_2|
+      vm_2.vm.box = "inclusivedesign/centos7"
+      vm_2.vm.network "private_network", ip: "192.168.88.11"
   end
 
-  config.vm.define "vm_3" do |vm|
-      node.vm.box = "inclusivedesign/centos7"
-      node.vm.network "private_network", ip: "192.168.88.12"
+  config.vm.define "vm_3" do |vm_3|
+      vm_3.vm.box = "inclusivedesign/centos7"
+      vm_3.vm.network "private_network", ip: "192.168.88.12"
   end
 
   # Disable automatic box update checking. If you disable this, then
