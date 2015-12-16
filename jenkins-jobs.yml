@@ -1,0 +1,22 @@
+- job:
+    name: 'inclusivedesign_centos'
+    project-type: 'freestyle'
+    display-name: 'Builds the inclusivedesign/centos image'
+    scm:
+        - git:
+            url: https://github.com/idi-ops/docker-centos
+            branches:
+                - master
+    builders:
+      - shell: sudo docker build -t inclusivedesign/centos .
+- job:
+    name: 'inclusivedesign_nodejs'
+    project-type: 'freestyle'
+    display-name: 'Builds the inclusivedesign/nodejs image'
+    scm:
+        - git:
+            url: https://github.com/idi-ops/docker-nodejs
+            branches:
+                - master
+    builders:
+      - shell: sudo docker build -t inclusivedesign/nodejs .

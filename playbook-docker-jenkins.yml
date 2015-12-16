@@ -18,9 +18,19 @@
         src: jenkins-plugins.txt
         dest: /home/vagrant/jenkins-plugins.txt
 
+    - name: copy plugins file for Jenkins job definitions into place
+      copy:
+        src: jenkins-jobs.yml
+        dest: /home/vagrant/jenkins-jobs.yml
+
+    - name: copy .ini file for Jenkins job builder into place
+      copy:
+        src: jenkins_jobs.ini
+        dest: /home/vagrant/jenkins_jobs.ini
+
     # http://container-solutions.com/running-docker-in-jenkins-in-docker/
     - name: build custom Jenkins container with passwordless sudo
-      shell: "docker build -t aharnum/jenkins-docker - < /home/vagrant/Dockerfile.jenkins_indind"
+      shell: "docker build -t aharnum/jenkins-docker -f Dockerfile.jenkins_indind /home/vagrant/"
 
     - name: stop custom Jenkins container if it's running
       docker:
