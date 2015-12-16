@@ -55,5 +55,6 @@
           - "/lib64/libsystemd-id128.so.0:/usr/lib/libsystemd-id128.so.0"
           - "/lib64/libsystemd-id128.so.0:/usr/lib/libsystemd-id128.so.0"
           - "/lib64/libgcrypt.so.11:/usr/lib/libgcrypt.so.11"
+          - "/lib64/libdw.so.1:/usr/lib/libdw.so.1"
           # Persistent directory for Jenkins
           - "{{ jenkins_persistent_directory }}:/var/jenkins_home"
