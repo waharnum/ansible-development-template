@@ -1,0 +1,60 @@
+---
+- hosts: docker
+  remote_user: vagrant
+  become: yes
+
+  vars:
+    - custom_jenkins_image: "aharnum/jenkins-docker"
+
+  tasks:
+    - name: copy Dockerfile for custom Jenkins into place
+      copy:
+        src: Dockerfile.jenkins_indind
+        dest: /home/vagrant/Dockerfile.jenkins_indind
+
+    - name: copy plugins file for custom Jenkins into place
+      copy:
+        src: jenkins-plugins.txt
+        dest: /home/vagrant/jenkins-plugins.txt
+
+    # http://container-solutions.com/running-docker-in-jenkins-in-docker/
+    - name: build custom Jenkins container with passwordless sudo
+      shell: "docker build -t aharnum/jenkins-docker - < /home/vagrant/Dockerfile.jenkins_indind"
+
+    - name: stop custom Jenkins container if it's running
+      docker:
+        image: "{{ custom_jenkins_image }}"
+        name: jenkins
+        state: stopped
+
+    - name: create persistent directory on host for Jenkins container
+      file:
+        path: /var/jenkins_home
+        state: directory
+        # Must be owned by Jenkins user (UID 1000 in container)
+        owner: 1000
+
+    # As per https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
+    - name: launch Jenkins container with access to the Docker socket and the Docker binary
+      docker:
+        image: "{{ custom_jenkins_image }}"
+        name: jenkins
+        ports:
+          - "8080:8080"
+        state: started
+        volumes:
+          # Docker socket
+          - "/var/run/docker.sock:/var/run/docker.sock"
+          # Docker binary
+          - "/usr/bin/docker:/bin/docker"
+          # Hacky fix for issue described at https://github.com/jpetazzo/dind/issues/66
+          - "/lib64/libdevmapper.so.1.02:/usr/lib/libdevmapper.so.1.02"
+          - "/lib64/libsystemd-journal.so.0:/usr/lib/libsystemd-journal.so.0"
+          - "/lib64/libsystemd-id128.so.0:/usr/lib/libsystemd-id128.so.0"
+          - "/lib64/libsystemd-id128.so.0:/usr/lib/libsystemd-id128.so.0"
+          - "/lib64/libgcrypt.so.11:/usr/lib/libgcrypt.so.11"
+          # Persistent directory for Jenkins
+          - "/var/jenkins_docker_home:/var/jenkins_home"
+
+# https://github.com/idi-ops/docker-centos
+# sudo docker build -t inclusivedesign/centos .

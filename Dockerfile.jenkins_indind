@@ -1,0 +1,15 @@
+# Basic approach described at http://container-solutions.com/running-docker-in-jenkins-in-docker/
+FROM jenkins
+
+USER root
+RUN apt-get update \
+      && apt-get install -y sudo \
+      && rm -rf /var/lib/apt/lists/*
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+RUN echo "scm-api:latest" > /usr/share/jenkins/plugins.txt
+RUN echo "git-client:latest" >> /usr/share/jenkins/plugins.txt
+RUN echo "git:latest" >> /usr/share/jenkins/plugins.txt
+
+USER jenkins
+RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
