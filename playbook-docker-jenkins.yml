@@ -5,6 +5,7 @@
 
   vars:
     - custom_jenkins_image: "aharnum/jenkins-docker"
+    - jenkins_persistent_directory: "/var/jenkins_docker_home"
 
   tasks:
     - name: copy Dockerfile for custom Jenkins into place
@@ -29,7 +30,7 @@
 
     - name: create persistent directory on host for Jenkins container
       file:
-        path: /var/jenkins_home
+        path: "{{ jenkins_persistent_directory }}"
         state: directory
         # Must be owned by Jenkins user (UID 1000 in container)
         owner: 1000
@@ -39,6 +40,7 @@
       docker:
         image: "{{ custom_jenkins_image }}"
         name: jenkins
+        # So we can interact with it from the host system
         ports:
           - "8080:8080"
         state: started
@@ -54,7 +56,4 @@
           - "/lib64/libsystemd-id128.so.0:/usr/lib/libsystemd-id128.so.0"
           - "/lib64/libgcrypt.so.11:/usr/lib/libgcrypt.so.11"
           # Persistent directory for Jenkins
-          - "/var/jenkins_docker_home:/var/jenkins_home"
-
-# https://github.com/idi-ops/docker-centos
-# sudo docker build -t inclusivedesign/centos .
+          - "{{ jenkins_persistent_directory }}:/var/jenkins_home"
