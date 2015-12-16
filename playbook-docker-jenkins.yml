@@ -68,3 +68,13 @@
           - "/lib64/libdw.so.1:/usr/lib/libdw.so.1"
           # Persistent directory for Jenkins
           - "{{ jenkins_persistent_directory }}:/var/jenkins_home"
+
+    # wait for Jenkins to finish launching
+    - name: wait a little bit for the Jenkins container
+      wait_for:
+        port: 8080
+        delay: 30
+
+    - name: exec Jenkins Job Builder load within the container
+      command: "docker exec -it jenkins sudo jenkins-jobs --conf /var/jenkins_job_builder/jenkins_jobs.ini update /var/jenkins_job_builder/jenkins-jobs.yml"
+      tags: load-jobs

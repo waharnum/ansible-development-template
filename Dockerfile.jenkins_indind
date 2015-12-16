@@ -26,7 +26,7 @@ RUN mkdir /var/jenkins_job_builder
 WORKDIR /var/jenkins_job_builder
 COPY jenkins-jobs.yml .
 COPY jenkins_jobs.ini .
-# RUN jenkins-jobs --conf /var/jenkins_job_builder/jenkins_jobs.ini update jenkins-jobs.yml
+# RUN jenkins-jobs --conf /var/jenkins_job_builder/jenkins_jobs.ini update /var/jenkins_job_builder/jenkins-jobs.yml
 
 USER jenkins
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
