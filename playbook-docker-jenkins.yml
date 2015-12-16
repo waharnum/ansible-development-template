@@ -76,5 +76,5 @@
         delay: 30
 
     - name: exec Jenkins Job Builder load within the container
-      command: "docker exec -it jenkins sudo jenkins-jobs --conf /var/jenkins_job_builder/jenkins_jobs.ini update /var/jenkins_job_builder/jenkins-jobs.yml"
+      command: "docker exec -it jenkins sudo jenkins-jobs --conf /var/jenkins_job_builder/jenkins_jobs.ini update --delete-old /var/jenkins_job_builder/jenkins-jobs.yml"
       tags: load-jobs

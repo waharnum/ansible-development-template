@@ -14,6 +14,10 @@
     name: 'inclusivedesign_nodejs'
     project-type: 'freestyle'
     display-name: 'Builds the inclusivedesign/nodejs image'
+    triggers:
+      - reverse:
+          jobs: 'inclusivedesign_centos'
+          result: 'success'
     scm:
         - git:
             url: https://github.com/idi-ops/docker-nodejs
@@ -26,22 +30,30 @@
     name: 'gpii_universal'
     project-type: 'freestyle'
     display-name: 'Builds the gpii/universal image (waharnum fork, GPII-1536 branch)'
+    triggers:
+      - reverse:
+          jobs: 'inclusivedesign_nodejs'
+          result: 'success'
     scm:
         - git:
             url: https://github.com/waharnum/universal
             branches:
                 - GPII-1536
     builders:
-      - shell: sudo docker build -t gpii/universal
+      - shell: sudo docker build -t gpii/universal .
 
 - job:
     name: 'gpii_preferences-server'
     project-type: 'freestyle'
     display-name: 'Builds the gpii/preferences-server image (waharnum fork)'
+    triggers:
+      - reverse:
+          jobs: 'gpii_universal'
+          result: 'success'
     scm:
         - git:
             url: https://github.com/waharnum/docker-preferences-server
             branches:
                 - master
     builders:
-      - shell: sudo docker build -t gpii/preferences-server
+      - shell: sudo docker build -t gpii/preferences-server .

@@ -29,4 +29,9 @@ COPY jenkins_jobs.ini .
 # RUN jenkins-jobs --conf /var/jenkins_job_builder/jenkins_jobs.ini update /var/jenkins_job_builder/jenkins-jobs.yml
 
 USER jenkins
+
+# Configure git
+RUN git config --global user.email "jenkins@localhost"
+RUN git config --global user.name "jenkins"
+
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
