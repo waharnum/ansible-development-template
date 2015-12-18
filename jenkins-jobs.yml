@@ -57,3 +57,19 @@
                 - master
     builders:
       - shell: sudo docker build -t gpii/preferences-server .
+
+- job:
+    name: 'gpii_flow-manager'
+    project-type: 'freestyle'
+    display-name: 'Builds the gpii/flow-manager image (waharnum fork)'
+    triggers:
+      - reverse:
+          jobs: 'gpii_universal'
+          result: 'success'
+    scm:
+        - git:
+            url: https://github.com/waharnum/docker-flow-manager
+            branches:
+                - master
+    builders:
+      - shell: sudo docker build -t gpii/flow-manager .
