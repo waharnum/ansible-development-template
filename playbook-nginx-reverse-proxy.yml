@@ -19,7 +19,16 @@
         domains:
           - app2.192.168.88.10.xip.io
         balancer_config: least_conn;
+      - config_name: sessionappproxy
+        backend_name: session-app-backend
+        backends:
+          - localhost:1880
+          - localhost:1881
+          - localhost:1882
+          - localhost:1883
+        domains:
+          - sessioned-app.192.168.88.10.xip.io
+        balancer_config: ip_hash;
 
   roles:
-    - nginx
     - ansible-nginx-reverse-proxy
