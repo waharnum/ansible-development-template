@@ -1,0 +1,24 @@
+---
+- hosts: nginx
+  remote_user: vagrant
+  become: yes
+  vars:
+    - nginx_reverse_proxy_proxies:
+      - nginx_reverse_proxy_config_name: app1proxy
+        nginx_reverse_proxy_backend_name: my-backend-1
+        nginx_reverse_proxy_backends:
+          - localhost:1880 # Docker container #1
+          - localhost:1881 # Docker container #2
+        nginx_reverse_proxy_domains:
+          - app1.192.168.88.10.xip.io
+      - nginx_reverse_proxy_config_name: app2proxy
+        nginx_reverse_proxy_backend_name: my-backend-2
+        nginx_reverse_proxy_backends:
+          - localhost:1882 # Docker container #3
+          - localhost:1883 # Docker container #4
+        nginx_reverse_proxy_domains:
+          - app2.192.168.88.10.xip.io          
+
+  roles:
+    - nginx
+    - ansible-nginx-reverse-proxy
