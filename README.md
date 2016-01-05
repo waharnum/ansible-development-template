@@ -14,13 +14,13 @@ I found myself having to do this frequently when doing serious Ansible developme
 
 ## Setting up a New Project
 
-- clone the repo
+- clone the repo, or fork it, or whatever!
 - create a new branch to do the work in for creating test playbooks, inventories, etc that will not form part of the complete distributed role (`git checkout -b {{ role_name }}` or similar)
     - the role itself is easier to manage if created as a separate repo and added as a submodule (see below)
 - customize `vm-inventory` with the appropriate directories where Vagrant will generate SSH keys for each box
 - if desired, add or remove VMs from the Vagrantfile / inventory, change their IPs, whatever
   - A cooler project would do all this automatically from one file. At the moment that's not this project.
-- `./up.sh`
+- Run `./up.sh`
 
 ## Developing roles and playbooks
 
@@ -38,5 +38,7 @@ I found myself having to do this frequently when doing serious Ansible developme
 
 ## Throwing the VMs away
 
-- `vagrant destroy`
-- `./up.sh`
+This setup provides three separate VMs out of the box to give you some leeway in having "clean" environments to test Ansible playbooks & roles against, but if you need to
+
+- `vagrant destroy` and confirm you want to destroy each VM (or `vagrant destroy -f` if you're really certain)
+- Run `./up.sh` again to rebuild fresh VMs
