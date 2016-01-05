@@ -1,0 +1,19 @@
+---
+- hosts: jenkins
+  remote_user: vagrant
+  become: yes
+
+  roles:
+    - role: ansible-facts
+    - role: ansible-jenkins
+      jenkins_hostname: ci.192.168.88.10.xip.io
+      # Listen on all rather than just localhost, or we can't access it from # outside the VM - in production, we'd be fronting with nginx or similar
+      jenkins_listen_address: 0.0.0.0
+      jenkins_admins:
+        - aharnum
+      jenkins_plugins:
+        - git-client
+        - git
+        - publish-over-ssh
+        - nodejs
+      jenkins_initial_password: "ChangeMe%"

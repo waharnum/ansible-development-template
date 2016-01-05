@@ -21,6 +21,8 @@ Vagrant.configure(2) do |config|
   config.vm.define "vm_1" do |vm_1|
       vm_1.vm.box = "inclusivedesign/centos7"
       vm_1.vm.network "private_network", ip: "192.168.88.10"
+      # Expose Jenkins port
+      vm_1.vm.network "forwarded_port", guest: 8080, host: 8080
   end
 
   config.vm.define "vm_2" do |vm_2|
