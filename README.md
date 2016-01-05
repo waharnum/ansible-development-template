@@ -1,6 +1,6 @@
 # Ansible Development Template
 
-I find myself having to do this kind of thing over and over again when doing serious Ansible development (writing new roles and playbooks) or testing (especially reviewing the work of others), so am trying to capture it in a repo I can reuse when needed to lower the start-up time.
+I found myself having to do this frequently when doing serious Ansible development (writing new roles and playbooks) or testing (reviewing the work of others), so have captured it in a repo to reuse as needed to lower the start-up time.
 
 ## Requirements
 
@@ -10,7 +10,7 @@ I find myself having to do this kind of thing over and over again when doing ser
 ## What It Does Out of the Box
 - sets up three VMs with private networking
 - confirms Ansible can connect to them
-- basically, you can manage the three VMs as though they were remote servers
+- you should then be able to manage the VMs as though they're remote servers
 
 ## Setting up a New Project
 
@@ -28,7 +28,13 @@ I find myself having to do this kind of thing over and over again when doing ser
     - `git submodule` it in the /roles directory
 - playbooks in the root directory
 - `ansible-playbook {{ playbook-file }} -i vm-inventory`
-- do whatever else you need to do
+- do whatever else you need to do and separately commit your clean roles without surrounding test playbooks / inventories
+
+## Testing the roles of others
+
+- from the root:
+    - `ansible-galaxy install {{ role_repo }} -p roles`
+- this gets you a copy of the role that you can reference in test playbooks
 
 ## Throwing the VMs away
 
