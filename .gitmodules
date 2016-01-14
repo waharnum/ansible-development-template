@@ -1,3 +1,6 @@
 [submodule "roles/ansible-jenkins"]
 	path = roles/ansible-jenkins
 	url = https://github.com/amatas/ansible-jenkins
+[submodule "roles/jenkins-views"]
+	path = roles/jenkins-views
+	url = https://github.com/waharnum/ansible-jenkins-views
