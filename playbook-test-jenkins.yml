@@ -42,4 +42,4 @@
     #     - nodejs
     #     - nested-view
     #   jenkins_initial_password: "ChangeMe%"
-    - role: ansible-jenkins-views
+    - role: jenkins-views
