@@ -3,16 +3,16 @@
   remote_user: vagrant
   become: yes
 
-  # vars_prompt:
-  #   - name:
-  #     prompt: "Enter Jenkins user name"
-  #
-  #   - name:
-  #     prompt: "Enter Jenkins password"
-  #     private: yes
+  vars_prompt:
+    - name: jenkins_user
+      prompt: "Enter Jenkins user name"
+
+    - name: jenkins_password
+      prompt: "Enter Jenkins password"
+      private: yes
 
   roles:
-    - role: ansible-facts
+    # - role: ansible-facts
     # - role: ansible-jenkins
     #   jenkins_hostname: ci.192.168.88.10.xip.io
     #   # Listen on all rather than just localhost, or we can't access it from # outside the VM - in production, we'd be fronting with nginx or similar
@@ -35,7 +35,7 @@
             - name: "Deploy Containers"
               regex: ".*deploy-container.*"
         - name: "Admin Jobs"
-          description: "Administrative jobs for doing administation"
+          description: "Administrative jobs for doing administrative things"
           child_views:
             - name: "Admin Jobs"
               regex: ".*admin.*"
