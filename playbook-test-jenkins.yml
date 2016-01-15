@@ -3,6 +3,14 @@
   remote_user: vagrant
   become: yes
 
+  # vars_prompt:
+  #   - name:
+  #     prompt: "Enter Jenkins user name"
+  #
+  #   - name:
+  #     prompt: "Enter Jenkins password"
+  #     private: yes
+
   roles:
     - role: ansible-facts
     # - role: ansible-jenkins
