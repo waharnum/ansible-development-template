@@ -3,30 +3,6 @@
   remote_user: vagrant
   become: yes
 
-  vars:
-    jenkins_nested_views:
-      - name: "Container Jobs"
-        child_views:
-          - name: "Build Containers"
-            regex: ".*build-container.*"
-          - name: "Deploy Containers"
-            regex: ".*deploy-container.*"
-      - name: "Admin Jobs"
-        child_views:
-          - name: "Admin Jobs"
-            regex: ".*admin.*"
-      - name: "Websites"
-        child_views:
-          - name: "IDRC"
-            regex: ".*idrc\\.ocad.*"
-          - name: "Floe"
-            regex: ".*floeproject\\.org.*"
-    jenkins_global_views:
-      - name: "All Container Jobs"
-        regex: ".*container.*"
-      - name: "All Non-Container Jobs"
-        regex: "(?!.*container).*"
-
   roles:
     - role: ansible-facts
     # - role: ansible-jenkins
@@ -43,3 +19,29 @@
     #     - nested-view
     #   jenkins_initial_password: "ChangeMe%"
     - role: jenkins-views
+      jenkins_nested_views:
+        - name: "Container Jobs"
+          child_views:
+            - name: "Build Containers"
+              regex: ".*build-container.*"
+            - name: "Deploy Containers"
+              regex: ".*deploy-container.*"
+        - name: "Admin Jobs"
+          description: "Administrative jobs for doing administation"
+          child_views:
+            - name: "Admin Jobs"
+              regex: ".*admin.*"
+        - name: "Websites"
+          description: "Various website jobs"
+          child_views:
+            - name: "IDRC"
+              description: "idrc.ocad sites"
+              regex: ".*idrc\\.ocad.*"
+            - name: "Floe"
+              regex: ".*floeproject\\.org.*"
+      jenkins_global_views:
+        - name: "All Container Jobs"
+          description: "All container jobs"
+          regex: ".*container.*"
+        - name: "All Non-Container Jobs"
+          regex: "(?!.*container).*"
